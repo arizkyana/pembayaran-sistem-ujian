@@ -18,6 +18,7 @@ class CreateTableItemPembayaran extends Migration
             $table->integer('semester_id');
             $table->string('nama');
             $table->text('deskripsi');
+            $table->integer('harga')->default(0);
             $table->timestamps();
         });
     }

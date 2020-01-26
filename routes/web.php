@@ -16,8 +16,10 @@ Route::get('/', function(){
 });
 
 // Auth Routes
-Route::get('/login', 'LoginController@index')->name('login-view');
+Route::get('/login', 'LoginController@index')->name('login:view');
 Route::post('/login', 'LoginController@login')->name('login');
 Route::post('/logout', 'LoginController@logout')->name('logout');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::get('/checkout', 'CheckoutController@index')->name('checkout');

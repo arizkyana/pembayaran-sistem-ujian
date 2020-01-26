@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/pembayaran', 'Api\PembayaranController@list_pembayaran')->name('list:pembayaran');
+Route::get('/pembayaran/semester', 'Api\PembayaranController@list_semester')->name('list:pembayaran:semester');
+
+Route::post('/pembayaran', 'Api\PembayaranController@add_pembayaran')->name('add:pembayaran');
