@@ -23,3 +23,5 @@ Route::post('/logout', 'LoginController@logout')->name('logout');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('/checkout', 'CheckoutController@index')->name('checkout');
+Route::get('/checkout/upload', 'CheckoutController@uploadForm')->name('checkout:upload');
+Route::post('/checkout/upload', 'CheckoutController@upload')->name('checkout:upload:file');
