@@ -2,8 +2,7 @@
     <section>
         <div class="row">
             <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class>Fulan bin Fulan</div>
-                <div class="text-secondary">Kelas XI</div>
+
                 <div class="my-3">
                     <form action>
                         <div class="form-group">
@@ -18,7 +17,8 @@
                                     v-for="semester in listPembayaranSemester"
                                     :value="semester.id"
                                     :key="semester.id"
-                                    >{{ semester.label }}</option
+                                >{{ semester.label }}
+                                </option
                                 >
                             </select>
                         </div>
@@ -52,60 +52,65 @@
     </section>
 </template>
 <script>
-export default {
-    name: "list-pembayaran",
+    export default {
+        name: "list-pembayaran",
 
-    data: () => ({
-        listPembayaran: [],
-        listPembayaranSemester: [],
-        loading: false,
-        semester: {}
-    }),
+        data: () => ({
+            listPembayaran: [],
+            listPembayaranSemester: [],
+            loading: false,
+            semester: {}
+        }),
 
-    async beforeMount() {
-        await this.fetchListPembayaranSemester();
-        await this.fetchListPembayaran();
-    },
+        async beforeMount() {
+            await this.fetchListPembayaranSemester();
+            await this.fetchListPembayaran();
+        },
 
-    methods: {
-        async addItemPembayaran(item) {
-            await window.axios({
-                url: "/api/pembayaran",
-                method: "post",
-                data: {
-                    ...item,
-                    user: this.$userId
+        methods: {
+            async addItemPembayaran(item) {
+                try {
+                    await window.axios({
+                        url: "/api/pembayaran",
+                        method: "post",
+                        data: {
+                            ...item,
+                            user: this.$userId
+                        }
+                    });
+
+                    item.added = true;
+
+                    alert("sukses menambahkan ke checkout");
+                } catch (err) {
+                    console.log(err.response.data.message);
+                    alert(err.response.data.message);
                 }
-            });
+            },
+            async fetchListPembayaran(params = {semester: 1}) {
+                const fetchListPembayaran = await window.axios({
+                    url: "/api/pembayaran",
+                    method: "get",
+                    params
+                });
 
-            item.added = true;
+                this.listPembayaran = fetchListPembayaran.data.map(d => {
+                    d.harga = window.helpers.currency(d.harga);
+                    return d;
+                });
+            },
+            async fetchListPembayaranSemester() {
+                const fetchListPembayaranSemester = await window.axios({
+                    url: "/api/pembayaran/semester",
+                    method: "get"
+                });
 
-            alert("sukses menambahkan ke checkout");
-        },
-        async fetchListPembayaran(params = { semester: 1 }) {
-            const fetchListPembayaran = await window.axios({
-                url: "/api/pembayaran",
-                method: "get",
-                params
-            });
+                this.listPembayaranSemester = fetchListPembayaranSemester.data;
+            },
 
-            this.listPembayaran = fetchListPembayaran.data.map(d => {
-                d.harga = window.helpers.currency(d.harga);
-                return d;
-            });
-        },
-        async fetchListPembayaranSemester() {
-            const fetchListPembayaranSemester = await window.axios({
-                url: "/api/pembayaran/semester",
-                method: "get"
-            });
-
-            this.listPembayaranSemester = fetchListPembayaranSemester.data;
-        },
-
-        async changeSemester() {
-            await this.fetchListPembayaran({ semester: this.semester });
+            async changeSemester() {
+                await this.fetchListPembayaran({semester: this.semester});
+            }
         }
-    }
-};
+    };
 </script>

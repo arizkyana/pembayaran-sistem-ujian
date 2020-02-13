@@ -4,7 +4,7 @@
 <div class="container">
     <div class="d-flex row align-items-center justify-content-center">
 
-        <div class="col-md-10">
+        <div class="col-md-12">
 
             <list-pembayaran />
 

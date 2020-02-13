@@ -21,3 +21,5 @@ Route::get('/pembayaran', 'Api\PembayaranController@list_pembayaran')->name('lis
 Route::get('/pembayaran/semester', 'Api\PembayaranController@list_semester')->name('list:pembayaran:semester');
 
 Route::post('/pembayaran', 'Api\PembayaranController@add_pembayaran')->name('add:pembayaran');
+
+Route::delete('/pembayaran/{id}', 'Api\PembayaranController@remove')->name('remove:pembayaran');

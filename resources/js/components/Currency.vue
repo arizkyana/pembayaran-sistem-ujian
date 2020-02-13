@@ -9,7 +9,7 @@
     export default {
         name: "Currency",
         props: {
-            price: Number,
+            price: String,
         },
 
         methods: {

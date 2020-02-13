@@ -25,6 +25,24 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // pembayaran
+        Gate::define('pembayaran', function($user){
+            return in_array('pembayaran', explode(",", $user->permissions));
+        });
+
+        // list pembayaran item
+        Gate::define('dashboard', function($user){
+            return in_array('dashboard', explode(",", $user->permissions));
+        });
+
+        // checkout
+        Gate::define('checkout', function($user){
+            return in_array('checkout', explode(",", $user->permissions));
+        });
+
+        // profile
+        Gate::define('profile', function($user){
+            return in_array('profile', explode(",", $user->permissions));
+        });
     }
 }
