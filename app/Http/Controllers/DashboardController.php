@@ -15,7 +15,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
-        $this->authorize('dashboard');
+
         // semester
         $semester = Semester::all();
         $item_pembayaran = ItemPembayaran::all();

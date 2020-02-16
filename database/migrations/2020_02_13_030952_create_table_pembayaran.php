@@ -17,7 +17,7 @@ class CreateTablePembayaran extends Migration
             $table->bigIncrements('id');
             $table->string('no_kwitansi');
             $table->boolean('is_paid')->default(false);
-            $table->text('bukti_pembayaran')->default('');
+            $table->text('bukti_pembayaran');
             $table->integer('created_by');
             $table->timestamps();
         });
